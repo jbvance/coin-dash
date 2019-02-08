@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
+import styled, { css } from 'styled-components';
+import WelcomeMessage from './WelcomeMessage';
+
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <div>Hello World</div>
+        <div><WelcomeMessage /></div>  
       </div>
     );
   }
