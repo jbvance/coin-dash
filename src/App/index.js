@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import './App.css';
 import styled, { css } from 'styled-components';
 import WelcomeMessage from './WelcomeMessage';
+import AppLayout from './AppLayout';
 
 class App extends Component {
   render() {
-    return (
-      <div className="App">
-        <div><WelcomeMessage /></div>  
-      </div>
+    return (     
+      <AppLayout>
+        <WelcomeMessage />
+      </AppLayout>     
     );
   }
 }
