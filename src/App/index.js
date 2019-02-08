@@ -3,7 +3,6 @@ import './App.css';
 import styled, { css } from 'styled-components';
 import WelcomeMessage from './WelcomeMessage';
 
-
 class App extends Component {
   render() {
     return (
