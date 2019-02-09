@@ -40,19 +40,42 @@ export default class AppProvider extends React.Component {
 
     componentDidMount() {
         this.fetchCoins();
+        this.fetchPrices();
     }
 
     fetchCoins = async () => {
         let coinList = (await cc.coinList()).Data;
         this.setState({coinList});
+    };
+
+    fetchPrices = async () => {
+        // just return if this is user's first visit
+        if (this.state.firstVisit) return;
+        let prices = await this.prices();
+        console.log('PRICES', prices);
+        this.setState({prices});
+    };
+
+    prices = async () => {
+        let returnData = [];
+        for(let i = 0; i < this.state.favorites.length; i++) {
+            try {
+                let priceData = await cc.priceFull(this.state.favorites[i], 'USD');
+                returnData.push(priceData);
+            }  catch(e) {
+                console.warn('Fetch price error: ', e);
+            }
+        }
+        return returnData;
     }
 
     confirmFavorites = () => {
         this.setState({
             firstVisit: false,
             page: 'dashboard'
-        });
-        console.log('GOT HERE');
+        }, () => {
+            this.fetchPrices();
+        });        
         localStorage.setItem('cryptoDash', JSON.stringify({
             favorites: this.state.favorites
         }));
